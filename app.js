@@ -1,3 +1,8 @@
+const totalCount = document.getElementById("totalCount");
+const pendingCount = document.getElementById("pendingCount");
+const completedCount = document.getElementById("completedCount");
+const overdueCount = document.getElementById("overdueCount");
+
 const titleInput = document.getElementById("titleInput");
 const dueDateInput = document.getElementById("dueDateInput");
 const addBtn = document.getElementById("addBtn");
@@ -51,7 +56,23 @@ function renderAssignments() {
     });
 
     assignmentList.appendChild(li);
+    updateStats();
   });
+}
+function updateStats() {
+  const total = assignments.length;
+  const completed = assignments.filter(a => a.completed).length;
+  const pending = total - completed;
+
+  const today = new Date().setHours(0, 0, 0, 0);
+  const overdue = assignments.filter(
+    a => !a.completed && new Date(a.dueDate) < today
+  ).length;
+
+  totalCount.textContent = total;
+  pendingCount.textContent = pending;
+  completedCount.textContent = completed;
+  overdueCount.textContent = overdue;
 }
 
 // Add assignment
@@ -75,6 +96,7 @@ addBtn.addEventListener("click", () => {
 
 // Initial render
 renderAssignments();
+
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("sw.js");
 }
