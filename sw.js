@@ -1,4 +1,4 @@
-const CACHE_NAME = "assignment-tracker-v1";
+const CACHE_NAME = "assignment-tracker-v2";
 const FILES_TO_CACHE = [
   "./",
   "./index.html",
