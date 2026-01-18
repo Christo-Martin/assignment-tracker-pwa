@@ -41,3 +41,6 @@ addBtn.addEventListener("click", () => {
 
 // Initial render
 renderAssignments();
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js");
+}
