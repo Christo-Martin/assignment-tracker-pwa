@@ -12,20 +12,40 @@ function renderAssignments() {
 
   assignments.forEach((item, index) => {
     const li = document.createElement("li");
+
+    const isOverdue =
+      !item.completed && new Date(item.dueDate) < new Date().setHours(0, 0, 0, 0);
+
     li.innerHTML = `
-      <label>
-        <input type="checkbox" ${item.completed ? "checked" : ""} />
-        <strong style="text-decoration:${item.completed ? "line-through" : "none"}">
-          ${item.title}
-        </strong>
-      </label>
-      <br/>
-      <small>Due: ${item.dueDate}</small>
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <label>
+          <input type="checkbox" ${item.completed ? "checked" : ""} />
+          <strong style="
+            text-decoration:${item.completed ? "line-through" : "none"};
+            color:${isOverdue ? "#dc2626" : "#000"};
+          ">
+            ${item.title}
+          </strong>
+        </label>
+        <button class="delete-btn">✕</button>
+      </div>
+      <small style="color:${isOverdue ? "#dc2626" : "#555"}">
+        Due: ${item.dueDate}${isOverdue ? " (Overdue)" : ""}
+      </small>
     `;
 
+    // Complete toggle
     const checkbox = li.querySelector("input");
     checkbox.addEventListener("change", () => {
       item.completed = checkbox.checked;
+      localStorage.setItem("assignments", JSON.stringify(assignments));
+      renderAssignments();
+    });
+
+    // Delete assignment
+    const deleteBtn = li.querySelector(".delete-btn");
+    deleteBtn.addEventListener("click", () => {
+      assignments.splice(index, 1);
       localStorage.setItem("assignments", JSON.stringify(assignments));
       renderAssignments();
     });
