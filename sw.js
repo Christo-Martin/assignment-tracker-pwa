@@ -1,10 +1,10 @@
 const CACHE_NAME = "assignment-tracker-v1";
 const FILES_TO_CACHE = [
-  "/",
-  "/index.html",
-  "/style.css",
-  "/app.js",
-  "/manifest.json"
+  "./",
+  "./index.html",
+  "./style.css",
+  "./app.js",
+  "./manifest.json"
 ];
 
 self.addEventListener("install", event => {
