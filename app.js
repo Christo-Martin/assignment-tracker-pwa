@@ -13,9 +13,23 @@ function renderAssignments() {
   assignments.forEach((item, index) => {
     const li = document.createElement("li");
     li.innerHTML = `
-      <strong>${item.title}</strong><br/>
+      <label>
+        <input type="checkbox" ${item.completed ? "checked" : ""} />
+        <strong style="text-decoration:${item.completed ? "line-through" : "none"}">
+          ${item.title}
+        </strong>
+      </label>
+      <br/>
       <small>Due: ${item.dueDate}</small>
     `;
+
+    const checkbox = li.querySelector("input");
+    checkbox.addEventListener("change", () => {
+      item.completed = checkbox.checked;
+      localStorage.setItem("assignments", JSON.stringify(assignments));
+      renderAssignments();
+    });
+
     assignmentList.appendChild(li);
   });
 }
@@ -30,7 +44,7 @@ addBtn.addEventListener("click", () => {
     return;
   }
 
-  assignments.push({ title, dueDate });
+  assignments.push({ title, dueDate, completed: false });
   localStorage.setItem("assignments", JSON.stringify(assignments));
 
   titleInput.value = "";

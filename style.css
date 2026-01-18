@@ -53,3 +53,7 @@ main {
   margin-bottom: 0.5rem;
   border-radius: 6px;
 }
+input[type="checkbox"] {
+  margin-right: 8px;
+  transform: scale(1.2);
+}
