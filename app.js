@@ -10,12 +10,30 @@ const assignmentList = document.getElementById("assignmentList");
 
 // Load saved assignments
 let assignments = JSON.parse(localStorage.getItem("assignments")) || [];
+let currentFilter = "all";
+let currentSort = "due";
+const sortSelect = document.getElementById("sortSelect");
+const filterButtons = document.querySelectorAll(".filters button");
 
 // Render assignments
 function renderAssignments() {
+  let list = [...assignments];
+
+  // Filter
+  if (currentFilter === "pending") {
+    list = list.filter(a => !a.completed);
+  } else if (currentFilter === "completed") {
+    list = list.filter(a => a.completed);
+  }
+
+  // Sort
+  if (currentSort === "due") {
+    list.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+  }
+
   assignmentList.innerHTML = "";
 
-  assignments.forEach((item, index) => {
+  list.forEach((item, index) => {
     const li = document.createElement("li");
 
     const isOverdue =
@@ -93,6 +111,23 @@ addBtn.addEventListener("click", () => {
 
   renderAssignments();
 });
+
+sortSelect.addEventListener("change", () => {
+  currentSort = sortSelect.value;
+  renderAssignments();
+});
+
+filterButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    currentFilter = btn.dataset.filter;
+
+    filterButtons.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    renderAssignments();
+  });
+});
+
 
 // Initial render
 renderAssignments();

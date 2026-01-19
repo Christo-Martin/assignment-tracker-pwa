@@ -24,6 +24,19 @@
       <div>Overdue: <span id="overdueCount">0</span></div>
     </section>
 
+    <section class="controls">
+      <select id="sortSelect">
+        <option value="due">Sort by Due Date</option>
+        <option value="created">Sort by Created Order</option>
+      </select>
+
+      <div class="filters">
+        <button data-filter="all" class="active">All</button>
+        <button data-filter="pending">Pending</button>
+        <button data-filter="completed">Completed</button>
+      </div>
+    </section>
+
     <section class="add-assignment">
       <input type="text" id="titleInput" placeholder="Assignment title" />
       <input type="date" id="dueDateInput" />
