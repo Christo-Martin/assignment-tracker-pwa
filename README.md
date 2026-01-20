@@ -44,11 +44,16 @@ Open `index.html` in a browser
 
 The app can be hosted using GitHub Pages.
 
+## Specification
+
+The original project requirements are documented in [SPEC.md](SPEC.md).
+
 ## Development Notes
 
 - This project intentionally avoids frameworks to focus on core concepts.
 - Mobile browsers and PWAs aggressively cache files; clearing site data may be required during development.
 
+
 ## License
 
-See `LICENSE` file.
+This project is licensed under the [MIT License](LICENSE).
