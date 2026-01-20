@@ -16,6 +16,14 @@ const priorityRank = {
   low: 3
 };
 
+const SUBJECT_COLORS = {
+  General: "#6b7280",  // gray
+  Math: "#2563eb",     // blue
+  Physics: "#16a34a",  // green
+  CS: "#7c3aed"        // purple
+};
+
+
 
 // Load saved assignments
 let assignments = JSON.parse(localStorage.getItem("assignments")) || [];
@@ -67,6 +75,14 @@ function renderAssignments() {
 
   list.forEach((item, index) => {
     const li = document.createElement("li");
+    const subject = item.subject || "General";
+    const color = SUBJECT_COLORS[subject] || SUBJECT_COLORS.General;
+
+    li.style.borderLeft = `6px solid ${color}`;
+    li.style.borderRadius = "10px";
+    li.style.padding = "0.8rem";
+    li.style.marginBottom = "0.6rem";
+    li.style.background = "#fff";
 
     const isOverdue =
       !item.completed && new Date(item.dueDate) < new Date().setHours(0, 0, 0, 0);
