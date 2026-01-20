@@ -106,3 +106,23 @@ input[type="checkbox"] {
   background: #2563eb;
   color: white;
 }
+
+.priority {
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+  color: white;
+}
+
+.priority.low {
+  background: #16a34a;
+}
+
+.priority.medium {
+  background: #ca8a04;
+}
+
+.priority.high {
+  background: #dc2626;
+}
