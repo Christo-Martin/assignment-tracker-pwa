@@ -9,6 +9,13 @@ const priorityInput = document.getElementById("priorityInput");
 const addBtn = document.getElementById("addBtn");
 const assignmentList = document.getElementById("assignmentList");
 
+const priorityRank = {
+  high: 1,
+  medium: 2,
+  low: 3
+};
+
+
 // Load saved assignments
 let assignments = JSON.parse(localStorage.getItem("assignments")) || [];
 let currentFilter = "all";
@@ -41,6 +48,12 @@ function renderAssignments() {
   // Sort
   if (currentSort === "due") {
     list.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+  }
+  if (currentSort === "priority") {
+    list.sort(
+      (a, b) =>
+        priorityRank[a.priority ] - priorityRank[b.priority ]
+    );
   }
 
   assignmentList.innerHTML = "";
