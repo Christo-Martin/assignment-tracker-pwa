@@ -60,10 +60,10 @@ function renderAssignments() {
             color:${isOverdue ? "#dc2626" : "#000"};
           ">
             ${item.title}
-            <span class="priority ${item.priority}">
-              ${item.priority.toUpperCase()}
-            </span>
           </strong>
+          <span class="priority ${item.priority}">
+              ${item.priority.toUpperCase()}
+          </span>
         </label>
         <button class="delete-btn">✕</button>
       </div>
