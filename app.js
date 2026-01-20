@@ -5,6 +5,7 @@ const overdueCount = document.getElementById("overdueCount");
 
 const titleInput = document.getElementById("titleInput");
 const dueDateInput = document.getElementById("dueDateInput");
+const subjectInput = document.getElementById("subjectInput");
 const priorityInput = document.getElementById("priorityInput");
 const addBtn = document.getElementById("addBtn");
 const assignmentList = document.getElementById("assignmentList");
@@ -23,10 +24,11 @@ let currentSort = "due";
 const sortSelect = document.getElementById("sortSelect");
 const filterButtons = document.querySelectorAll(".filters button");
 
-function createAssignment(title, dueDate,priority) {
+function createAssignment(title, subject, dueDate,priority) {
   return {
     id: Date.now(),        // unique ID
     title,
+    subject,
     dueDate,
     completed: false,
     createdAt: Date.now(),
@@ -85,6 +87,10 @@ function renderAssignments() {
         </label>
         <button class="delete-btn">✕</button>
       </div>
+      <small class="subject">
+        ${item.subject || "General"}
+      </small>
+
       <small style="color:${isOverdue ? "#dc2626" : "#555"}">
         Due: ${item.dueDate}${isOverdue ? " (Overdue)" : ""}
       </small>
@@ -132,6 +138,7 @@ function updateStats() {
 addBtn.addEventListener("click", () => {
   const title = titleInput.value.trim();
   const dueDate = dueDateInput.value;
+  const subject = subjectInput.value.trim();
   const priority = priorityInput.value;
 
 
@@ -140,7 +147,7 @@ addBtn.addEventListener("click", () => {
     return;
   }
 
-  assignments.push(createAssignment(title, dueDate,priority));
+  assignments.push(createAssignment(title, subject, dueDate,priority));
   localStorage.setItem("assignments", JSON.stringify(assignments));
 
   titleInput.value = "";

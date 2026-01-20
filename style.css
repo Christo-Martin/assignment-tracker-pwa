@@ -126,3 +126,10 @@ input[type="checkbox"] {
 .priority.high {
   background: #dc2626;
 }
+
+.subject {
+  display: block;
+  font-size: 0.8rem;
+  color: #555;
+  margin-left: 22px; /* aligns with text after checkbox */
+}
