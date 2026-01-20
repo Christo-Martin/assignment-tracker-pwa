@@ -15,3 +15,10 @@ Open app
 → Enter assignment
 → Save
 → Immediately visible in list
+
+## Status
+
+Core specification completed.
+
+Further changes are iterative enhancements and UI improvements beyond the original scope.
+
