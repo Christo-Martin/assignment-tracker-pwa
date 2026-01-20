@@ -50,10 +50,15 @@ function renderAssignments() {
     list.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
   }
   if (currentSort === "priority") {
-    list.sort(
-      (a, b) =>
-        priorityRank[a.priority ] - priorityRank[b.priority ]
-    );
+    list.sort((a, b) => {
+      const priorityDiff = priorityRank[a.priority ] - priorityRank[b.priority ];
+
+      if (priorityDiff !== 0) {
+        return priorityDiff; 
+      }
+
+      return new Date(a.dueDate) - new Date(b.dueDate);
+    });
   }
 
   assignmentList.innerHTML = "";
