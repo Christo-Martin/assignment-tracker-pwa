@@ -15,6 +15,16 @@ let currentSort = "due";
 const sortSelect = document.getElementById("sortSelect");
 const filterButtons = document.querySelectorAll(".filters button");
 
+function createAssignment(title, dueDate) {
+  return {
+    id: Date.now(),        // unique ID
+    title,
+    dueDate,
+    completed: false,
+    createdAt: Date.now()
+  };
+}
+
 // Render assignments
 function renderAssignments() {
   let list = [...assignments];
@@ -60,7 +70,9 @@ function renderAssignments() {
     // Complete toggle
     const checkbox = li.querySelector("input");
     checkbox.addEventListener("change", () => {
-      item.completed = checkbox.checked;
+      assignments = assignments.map(a =>
+        a.id === item.id ? { ...a, completed: checkbox.checked } : a
+      );
       localStorage.setItem("assignments", JSON.stringify(assignments));
       renderAssignments();
     });
@@ -68,7 +80,7 @@ function renderAssignments() {
     // Delete assignment
     const deleteBtn = li.querySelector(".delete-btn");
     deleteBtn.addEventListener("click", () => {
-      assignments.splice(index, 1);
+      assignments = assignments.filter(a => a.id !== item.id);
       localStorage.setItem("assignments", JSON.stringify(assignments));
       renderAssignments();
     });
@@ -103,7 +115,7 @@ addBtn.addEventListener("click", () => {
     return;
   }
 
-  assignments.push({ title, dueDate, completed: false });
+  assignments.push(createAssignment(title, dueDate));
   localStorage.setItem("assignments", JSON.stringify(assignments));
 
   titleInput.value = "";
