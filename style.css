@@ -26,16 +26,11 @@ main {
 }
 
 .add-assignment {
-  display: flex;
-  gap: 0.5rem;
+  width: 100%;
   margin-bottom: 1.5rem;
+  box-sizing: border-box;
 }
 
-.add-assignment input,
-.add-assignment button {
-  padding: 0.6rem;
-  font-size: 1rem;
-}
 
 .add-assignment button {
   background: #2563eb;
@@ -136,14 +131,6 @@ input[type="checkbox"] {
   margin-left: 22px; /* aligns with text after checkbox */
 }
 
-.add-controls {
-  display: grid;
-  gap: 0.6rem;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  min-width: 0;
-}
 
 #titleInput {
   font-size: 1.1rem;
@@ -151,4 +138,21 @@ input[type="checkbox"] {
   padding: 0.75rem;
   border-radius: 10px;
   border: 1px solid #d1d5db;
+}
+
+.add-controls {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.8rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.add-controls input,
+.add-controls select,
+.add-controls button {
+  width: 100%;
+  padding: 0.7rem;
+  font-size: 1rem;
+  box-sizing: border-box;
 }
