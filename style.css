@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;
-  font-family: system-ui, sans-serif;
+  font-family: 'Inter',system-ui, sans-serif;
 }
 
 body {
@@ -8,6 +8,8 @@ body {
   padding: 0;
   background: #f4f6f8;
   color: #222;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
 }
 
 header {
@@ -132,4 +134,21 @@ input[type="checkbox"] {
   font-size: 0.8rem;
   color: #555;
   margin-left: 22px; /* aligns with text after checkbox */
+}
+
+.add-controls {
+  display: grid;
+  gap: 0.6rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+#titleInput {
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 0.75rem;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
 }

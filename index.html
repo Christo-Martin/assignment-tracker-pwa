@@ -6,7 +6,9 @@
   <meta name="theme-color" content="#2563eb">
   <title>Assignment Tracker</title>
   <link rel="manifest" href="manifest.json">
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -38,22 +40,24 @@
       </div>
     </section>
 
-    <section class="add-assignment">
-      <input type="text" id="titleInput" placeholder="Assignment title" />
-      <input type="date" id="dueDateInput" />
-      <select id="subjectInput">
-        <option value="General">General</option>
-        <option value="Math">Math</option>
-        <option value="Physics">Physics</option>
-        <option value="CS">CS</option>
-      </select>
-      <select id="priorityInput">
-        <option value="low">Low</option>
-        <option value="medium" selected>Medium</option>
-        <option value="high">High</option>
-      </select>
-      <button type="button" id="addBtn">Add Assignment</button>
-    </section>
+    <div class="add-controls">
+      <section class="add-assignment">
+        <input type="text" id="titleInput" placeholder="Assignment title" />
+        <input type="date" id="dueDateInput" />
+        <select id="subjectInput">
+          <option value="General">General</option>
+          <option value="Math">Math</option>
+          <option value="Physics">Physics</option>
+          <option value="CS">CS</option>
+        </select>
+        <select id="priorityInput">
+          <option value="low">Low</option>
+          <option value="medium" selected>Medium</option>
+          <option value="high">High</option>
+        </select>
+        <button type="button" id="addBtn">Add Assignment</button>
+      </section>
+    </div>
 
     <section class="assignment-list">
       <h2>Your Assignments</h2>
