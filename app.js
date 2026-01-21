@@ -165,12 +165,16 @@ addBtn.addEventListener("click", () => {
 
   assignments.push(createAssignment(title, subject, dueDate,priority));
   localStorage.setItem("assignments", JSON.stringify(assignments));
-
+  addSection.classList.add("hidden");
   titleInput.value = "";
   dueDateInput.value = "";
 
   renderAssignments();
 });
+document.getElementById("cancelAdd").addEventListener("click", () => {
+  addSection.classList.add("hidden");
+});
+
 
 sortSelect.addEventListener("change", () => {
   currentSort = sortSelect.value;
@@ -186,6 +190,17 @@ filterButtons.forEach(btn => {
 
     renderAssignments();
   });
+});
+
+const openAddBtn = document.getElementById("openAdd");
+const addSection = document.getElementById("addSection");
+
+openAddBtn.addEventListener("click", () => {
+  addSection.classList.toggle("hidden");
+
+  if (!addSection.classList.contains("hidden")) {
+    document.getElementById("titleInput").focus();
+  }
 });
 
 

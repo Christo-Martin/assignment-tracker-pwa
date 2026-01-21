@@ -40,23 +40,28 @@
       </div>
     </section>
 
-     <section class="add-assignment">
-      <div class="add-controls">
-        <input type="text" id="titleInput" placeholder="Assignment title" />
-        <input type="date" id="dueDateInput" />
-        <select id="subjectInput">
-          <option value="General">General</option>
-          <option value="Math">Math</option>
-          <option value="Physics">Physics</option>
-          <option value="CS">CS</option>
-        </select>
-        <select id="priorityInput">
-          <option value="low">Low</option>
-          <option value="medium" selected>Medium</option>
-          <option value="high">High</option>
-        </select>
-        <button type="button" id="addBtn">Add Assignment</button>
-      </div>
+    <button id="openAdd">Add Assignment</button>
+    
+    <section id="addSection" class="add-assignment hidden">
+      <button type="button" id="cancelAdd">Cancel</button>
+      <section class="add-assignment">
+        <div class="add-controls">
+          <input type="text" id="titleInput" placeholder="Assignment title" />
+          <input type="date" id="dueDateInput" />
+          <select id="subjectInput">
+            <option value="General">General</option>
+            <option value="Math">Math</option>
+            <option value="Physics">Physics</option>
+            <option value="CS">CS</option>
+          </select>
+          <select id="priorityInput">
+            <option value="low">Low</option>
+            <option value="medium" selected>Medium</option>
+            <option value="high">High</option>
+          </select>
+          <button type="button" id="addBtn">Add Assignment</button>
+        </div>
+      </section>
     </section>
 
     <section class="assignment-list">
