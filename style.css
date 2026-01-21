@@ -1,7 +1,6 @@
 * {
   box-sizing: border-box;
-  font-family: 'Inter',system-ui, sans-serif;
-}
+  }
 
 body {
   margin: 0;
@@ -29,14 +28,13 @@ main {
   width: 100%;
   margin-bottom: 1.5rem;
   box-sizing: border-box;
-}
-
-
-.add-assignment button {
-  background: #2563eb;
-  color: white;
-  border: none;
-  cursor: pointer;
+  
+  button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
 }
 
 .assignment-list ul {
@@ -62,10 +60,10 @@ input[type="checkbox"] {
   color: #dc2626;
   font-size: 1.2rem;
   cursor: pointer;
-}
 
-.delete-btn:hover {
-  transform: scale(1.2);
+  &:hover {
+    transform: scale(1.2);
+  }
 }
 
 .stats {
@@ -73,15 +71,15 @@ input[type="checkbox"] {
   grid-template-columns: repeat(2, 1fr);
   gap: 0.5rem;
   margin-bottom: 1rem;
+  div {
+    background: white;
+    padding: 0.7rem;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: 500;
+  }
 }
 
-.stats div {
-  background: white;
-  padding: 0.7rem;
-  border-radius: 6px;
-  text-align: center;
-  font-weight: 500;
-}
 
 .controls {
   display: flex;
@@ -97,33 +95,23 @@ input[type="checkbox"] {
   border-radius: 4px;
   background: #e5e7eb;
   cursor: pointer;
+  
+  &.active {
+    background: #2563eb;
+    color: white;
+  }
 }
-
-.filters button.active {
-  background: #2563eb;
-  color: white;
-}
-
 .priority {
   font-size: 0.75rem;
   padding: 2px 6px;
   border-radius: 4px;
   margin-left: 6px;
   color: white;
-}
 
-.priority.low {
-  background: #16a34a;
+  &.low {background: #16a34a;}
+  &.medium {background: #ca8a04;}
+  &.high {  background: #dc2626;}
 }
-
-.priority.medium {
-  background: #ca8a04;
-}
-
-.priority.high {
-  background: #dc2626;
-}
-
 .subject {
   display: block;
   font-size: 0.8rem;
@@ -138,21 +126,24 @@ input[type="checkbox"] {
   padding: 0.75rem;
   border-radius: 10px;
   border: 1px solid #d1d5db;
+  
+  &:focus::placeholder {
+    color: #252c3cef; 
+  }
 }
-
 .add-controls {
   display: grid;
   grid-template-columns: 1fr;
   gap: 0.8rem;
   width: 100%;
   box-sizing: border-box;
-}
-
-.add-controls input,
-.add-controls select,
-.add-controls button {
-  width: 100%;
-  padding: 0.7rem;
-  font-size: 1rem;
-  box-sizing: border-box;
+  
+  input,
+  select,
+  button {
+    width: 100%;
+    padding: 0.7rem;
+    font-size: 1rem;
+    box-sizing: border-box;
+  }  
 }
