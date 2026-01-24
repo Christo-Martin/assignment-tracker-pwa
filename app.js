@@ -1,3 +1,6 @@
+//===========================
+//      DOM ELEMENTS
+//===========================
 const totalCount = document.getElementById("totalCount");
 const pendingCount = document.getElementById("pendingCount");
 const completedCount = document.getElementById("completedCount");
@@ -10,6 +13,13 @@ const priorityInput = document.getElementById("priorityInput");
 const addBtn = document.getElementById("addBtn");
 const assignmentList = document.getElementById("assignmentList");
 
+const openAddBtn = document.getElementById("openAdd");
+const addSection = document.getElementById("addSection");
+const filterButtons = document.querySelectorAll(".filters button");
+
+//===========================
+//        CONSTANTS
+//===========================
 const priorityRank = {
   high: 1,
   medium: 2,
@@ -23,15 +33,20 @@ const SUBJECT_COLORS = {
   CS: "#7c3aed"        // purple
 };
 
+const SORT_MODES = ["due", "created", "priority"];
 
 
-// Load saved assignments
+//===========================
+//      CURRENT STATES
+//===========================
 let assignments = JSON.parse(localStorage.getItem("assignments")) || [];
 let currentFilter = "all";
-let currentSort = "due";
-const sortSelect = document.getElementById("sortSelect");
-const filterButtons = document.querySelectorAll(".filters button");
+let sortModeIndex = 0;
 
+
+//===========================
+//          HELPERS
+//===========================
 function createAssignment(title, subject, dueDate,priority) {
   return {
     id: Date.now(),        // unique ID
@@ -44,10 +59,12 @@ function createAssignment(title, subject, dueDate,priority) {
   };
 }
 
-// Render assignments
+//===================================
+//              RENDER
+//===================================
 function renderAssignments() {
   let list = [...assignments];
-
+  const today = new Date().setHours(0, 0, 0, 0);
   // Filter
   if (currentFilter === "pending") {
     list = list.filter(a => !a.completed);
@@ -56,12 +73,16 @@ function renderAssignments() {
   }
 
   // Sort
+  const currentSort = getCurrentSortMode();
   if (currentSort === "due") {
     list.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
   }
-  if (currentSort === "priority") {
+  else if (currentSort === "created"){
+    list.sort((a,b) => a.createdAt - b.createdAt);
+  }
+  else if (currentSort === "priority") {
     list.sort((a, b) => {
-      const priorityDiff = priorityRank[a.priority ] - priorityRank[b.priority ];
+      const priorityDiff = priorityRank[a.priority] - priorityRank[b.priority];
 
       if (priorityDiff !== 0) {
         return priorityDiff; 
@@ -73,7 +94,7 @@ function renderAssignments() {
 
   assignmentList.innerHTML = "";
 
-  list.forEach((item, index) => {
+  list.forEach((item) => {
     const li = document.createElement("li");
     const subject = item.subject || "General";
     const color = SUBJECT_COLORS[subject] || SUBJECT_COLORS.General;
@@ -85,7 +106,7 @@ function renderAssignments() {
     li.style.background = "#fff";
 
     const isOverdue =
-      !item.completed && new Date(item.dueDate) < new Date().setHours(0, 0, 0, 0);
+      !item.completed && new Date(item.dueDate) < today;
 
     li.innerHTML = `
       <div style="display:flex; justify-content:space-between; align-items:center;">
@@ -131,9 +152,32 @@ function renderAssignments() {
     });
 
     assignmentList.appendChild(li);
-    updateStats();
   });
+  
+  updateStats();
 }
+
+// ======================
+// SORT TOGGLE
+// ======================
+function getCurrentSortMode() {
+  return SORT_MODES[sortModeIndex];
+}
+
+function updateSortIcon() {
+  const btn = document.getElementById("sortToggle");
+  if (!btn) return;
+
+  const icons = {
+    due: "⏰",
+    created: "🕒",
+    priority: "⚡"
+  };
+
+  btn.textContent = icons[getCurrentSortMode()];
+}
+
+
 function updateStats() {
   const total = assignments.length;
   const completed = assignments.filter(a => a.completed).length;
@@ -150,6 +194,10 @@ function updateStats() {
   overdueCount.textContent = overdue;
 }
 
+//=============================
+//      EVENT LISTENERS
+//=============================
+
 // Add assignment
 addBtn.addEventListener("click", () => {
   const title = titleInput.value.trim();
@@ -157,13 +205,12 @@ addBtn.addEventListener("click", () => {
   const subject = subjectInput.value.trim();
   const priority = priorityInput.value;
 
-
   if (!title || !dueDate) {
     alert("Please enter title and due date");
     return;
   }
 
-  assignments.push(createAssignment(title, subject, dueDate,priority));
+  assignments.push(createAssignment(title, subject, dueDate, priority));
   localStorage.setItem("assignments", JSON.stringify(assignments));
   addSection.classList.add("hidden");
   titleInput.value = "";
@@ -171,16 +218,22 @@ addBtn.addEventListener("click", () => {
 
   renderAssignments();
 });
+
+// Cancel add
 document.getElementById("cancelAdd").addEventListener("click", () => {
   addSection.classList.add("hidden");
 });
 
+// Open add section
+openAddBtn.addEventListener("click", () => {
+  addSection.classList.toggle("hidden");
 
-sortSelect.addEventListener("change", () => {
-  currentSort = sortSelect.value;
-  renderAssignments();
+  if (!addSection.classList.contains("hidden")) {
+    titleInput.focus();
+  }
 });
 
+// Filter buttons
 filterButtons.forEach(btn => {
   btn.addEventListener("click", () => {
     currentFilter = btn.dataset.filter;
@@ -192,19 +245,12 @@ filterButtons.forEach(btn => {
   });
 });
 
-const openAddBtn = document.getElementById("openAdd");
-const addSection = document.getElementById("addSection");
+// Sort toggle
 
-openAddBtn.addEventListener("click", () => {
-  addSection.classList.toggle("hidden");
-
-  if (!addSection.classList.contains("hidden")) {
-    document.getElementById("titleInput").focus();
-  }
-});
-
-
-// Initial render
+//=============================
+//       INITIALIZATION
+//=============================
+updateSortIcon();
 renderAssignments();
 
 if ("serviceWorker" in navigator) {
