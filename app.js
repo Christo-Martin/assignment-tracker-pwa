@@ -1,6 +1,8 @@
 //===========================
 //      DOM ELEMENTS
 //===========================
+const sortToggleBtn = document.getElementById("sortToggle");
+
 const totalCount = document.getElementById("totalCount");
 const pendingCount = document.getElementById("pendingCount");
 const completedCount = document.getElementById("completedCount");
@@ -65,6 +67,7 @@ function createAssignment(title, subject, dueDate,priority) {
 function renderAssignments() {
   let list = [...assignments];
   const today = new Date().setHours(0, 0, 0, 0);
+  
   // Filter
   if (currentFilter === "pending") {
     list = list.filter(a => !a.completed);
@@ -122,7 +125,7 @@ function renderAssignments() {
               ${item.priority.toUpperCase()}
           </span>
         </label>
-        <button class="delete-btn">✕</button>
+        <button class="deleteBtn"> ✕ </button>
       </div>
       <small class="subject">
         ${item.subject || "General"}
@@ -144,7 +147,7 @@ function renderAssignments() {
     });
 
     // Delete assignment
-    const deleteBtn = li.querySelector(".delete-btn");
+    const deleteBtn = li.querySelector(".deleteBtn ");
     deleteBtn.addEventListener("click", () => {
       assignments = assignments.filter(a => a.id !== item.id);
       localStorage.setItem("assignments", JSON.stringify(assignments));
@@ -165,8 +168,7 @@ function getCurrentSortMode() {
 }
 
 function updateSortIcon() {
-  const btn = document.getElementById("sortToggle");
-  if (!btn) return;
+  if (!sortToggleBtn) return;
 
   const icons = {
     due: "⏰",
@@ -174,7 +176,15 @@ function updateSortIcon() {
     priority: "⚡"
   };
 
-  btn.textContent = icons[getCurrentSortMode()];
+  sortToggleBtn.textContent = icons[getCurrentSortMode()];
+}
+
+if (sortToggleBtn) {
+  sortToggleBtn.addEventListener("click", () => {
+    sortModeIndex = (sortModeIndex + 1) % SORT_MODES.length;
+    updateSortIcon();
+    renderAssignments();
+  });
 }
 
 
@@ -234,12 +244,12 @@ openAddBtn.addEventListener("click", () => {
 });
 
 // Filter buttons
-filterButtons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    currentFilter = btn.dataset.filter;
+filterButtons.forEach(filterBtn => {
+  filterBtn.addEventListener("click", () => {
+    currentFilter = filterBtn.dataset.filter;
 
     filterButtons.forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
+    filterBtn.classList.add("active");
 
     renderAssignments();
   });
